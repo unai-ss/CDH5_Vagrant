@@ -72,5 +72,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 #    app.vm.provision :reload
     app.vm.provision "shell", inline: "echo 'INSTALLER CDH Manager: Installation complete, try http://<server_host>:7180'"
   end
-
 end
