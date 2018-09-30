@@ -1,4 +1,3 @@
-sudo yum install cloudera-manager-daemons cloudera-manager-server -y
 sudo yum install mariadb-server -y
 sudo systemctl stop mariadb
 sudo mkdir -p /home/vagrant/backup_mariadb
@@ -71,3 +70,25 @@ sudo curl https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5
 sudo tar -C /home/vagrant zxvf /home/vagrant/mysql-connector-java-5.1.46.tar.gz
 sudo mkdir -p /usr/share/java/
 sudo cp /home/vagrant/mysql-connector-java-5.1.46/mysql-connector-java-5.1.46-bin.jar /usr/share/java/mysql-connector-java.jar
+#mysql < text_file
+sudo cat <<EOF >mysql -u root -p
+CREATE DATABASE scm DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+GRANT ALL ON scm.* TO 'scm'@'%' IDENTIFIED BY 'scm';
+CREATE DATABASE amon DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+GRANT ALL ON amon.* TO 'amon'@'%' IDENTIFIED BY 'amon';
+CREATE DATABASE rman DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+GRANT ALL ON rman.* TO 'rman'@'%' IDENTIFIED BY 'rman';
+CREATE DATABASE hue DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+GRANT ALL ON hue.* TO 'hue'@'%' IDENTIFIED BY 'hue';
+CREATE DATABASE metastore DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+GRANT ALL ON metastore.* TO 'hive'@'%' IDENTIFIED BY 'hive';
+CREATE DATABASE sentry DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+GRANT ALL ON sentry.* TO 'sentry'@'%' IDENTIFIED BY 'sentry';
+CREATE DATABASE nav DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+GRANT ALL ON nav.* TO 'nav'@'%' IDENTIFIED BY 'nav';
+CREATE DATABASE navms DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+GRANT ALL ON navms.* TO 'mavms'@'%' IDENTIFIED BY 'navms';
+CREATE DATABASE oozie DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+GRANT ALL ON oozie.* TO 'oozie'@'%' IDENTIFIED BY 'oozie';
+flush privileges;
+EOF

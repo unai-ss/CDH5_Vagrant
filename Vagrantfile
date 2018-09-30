@@ -60,10 +60,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     app.vm.provision "shell", path: "scripts/java_1_8.sh"
     app.vm.provision "shell", path: "scripts/CDH5_repo.sh"
     app.vm.provision "shell", path: "scripts/system_essentials.sh"
+    app.vm.provision "shell", path: "scripts/dnsmasq.sh"
     app.vm.provision "shell", path: "scripts/chrony_server.sh"
-    app.vm.provision "shell", path: "scripts/CDH_manager.sh"
-    app.vm.provision "shell", path: "scripts/CDH_Manager_installDB.sh"
+    app.vm.provision "shell", inline: "sudo yum install cloudera-manager-daemons cloudera-manager-server -y"
+    app.vm.provision "shell", path: "scripts/CDH_MariaDB.sh"
     app.vm.provision "shell", inline: "sudo systemctl start cloudera-scm-server"
+    # Running the script when MySQL or MariaDB is co-located with the Cloudera Manager Server
+    app.vm.provision "shell", inline: "sudo /usr/share/cmf/schema/scm_prepare_database.sh mysql scm scm"
+    # Running the script when MySQL or MariaDB is installed on another host
+#    app.vm.provision "shell", inline: "sudo /usr/share/cmf/schema/scm_prepare_database.sh mysql -h db01.example.com --scm-host cm01.example.com scm scm"
 #    app.vm.provision :reload
     app.vm.provision "shell", inline: "echo 'INSTALLER CDH Manager: Installation complete, try http://<server_host>:7180'"
   end
