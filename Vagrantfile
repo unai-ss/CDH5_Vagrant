@@ -60,6 +60,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     app.vm.provision "shell", path: "scripts/java_1_8.sh"
     app.vm.provision "shell", path: "scripts/CDH5_repo.sh"
     app.vm.provision "shell", path: "scripts/system_essentials.sh"
+    app.vm.provision "shell", path: "scripts/chrony_server.sh"
     app.vm.provision "shell", path: "scripts/CDH_manager.sh"
     app.vm.provision "shell", path: "scripts/CDH_Manager_installDB.sh"
     app.vm.provision "shell", inline: "sudo systemctl start cloudera-scm-server"
