@@ -1,5 +1,5 @@
 sudo yum install dnsmasq -y
-sudo cat <<EOF >/etc/dnsmaq.conf
+sudo cat <<EOF >/home/vagrant/dnsmaq.conf
 server=8.8.8.8
 server=8.8.4.4
 listen-address= 192.168.100.10
@@ -19,6 +19,6 @@ ptr-record=21.100.168.192.in-addr.arpa,dn01.bigdata.es
 ptr-record=22.100.168.192.in-addr.arpa,dn02.bigdata.es
 ptr-record=23.100.168.192.in-addr.arpa,dn03.bigdata.es
 EOF
-
+sudo cp /home/vagrant/dnsmaq.conf /etc/dnsmasq.conf
 sudo systemctl enable dnsmasq
 sudo systemctl start dnsmasq

@@ -1,9 +1,7 @@
 sudo yum install chrony -y
 #configuracion de ntp para servidor de NTP
-sudo cat <<EOF >/etc/chronyd.conf
-# Use public servers from the pool.ntp.org project.
-# Please consider joining the pool (http://www.pool.ntp.org/join.html).
-#server servidorntp.bigdata.es iburst
+sudo cat <<EOF >/home/vagrant/chrony.conf
+
 server 0.centos.pool.ntp.org iburst
 server 1.centos.pool.ntp.org iburst
 server 2.centos.pool.ntp.org iburst
@@ -27,6 +25,7 @@ local stratum 10
 # Specify file containing keys for NTP authentication.
 #keyfile /etc/chrony.keys
 EOF
+sudo cp /home/vagrant/chrony.conf /etc/chrony.conf
 sudo systemctl enable chronyd
 sudo systemctl start chronyd
 echo 'Instalación chrony server ****************'

@@ -1,6 +1,6 @@
 sudo yum install chrony -y
 #configuracion de ntp para cliente de NTP
-sudo cat <<EOF >/etc/chronyd.conf
+sudo cat <<EOF >/etc/chrony.conf
 # Use public servers from the pool.ntp.org project.
 # Please consider joining the pool (http://www.pool.ntp.org/join.html).
 server servidorntp.bigdata.es iburst
